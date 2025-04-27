@@ -38,7 +38,6 @@ st.markdown("""
     }
     .stButton {
         margin: auto;
-        background-color:black;
     }
     </style>
 """, unsafe_allow_html=True)
