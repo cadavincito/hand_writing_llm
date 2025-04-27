@@ -52,7 +52,7 @@ st.write("")  # Espacio
 drawing_mode = "freedraw"
 stroke_width = st.slider('Selecciona el ancho de línea', 1, 30, 15)
 stroke_color = '#FFFFFF'
-bg_color = '#000000'
+bg_color = '#990000'
 
 # Organizar el canvas centrado usando columnas
 col1, col2, col3 = st.columns([1,2,1])  # Hacemos la del medio más grande
