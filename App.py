@@ -44,7 +44,7 @@ st.markdown("""
 
 # Título y subtítulo
 st.title('Reconocimiento de Dígitos escritos a mano')
-st.subheader("✏️ Dibuja el dígito en el panel y presiona 'Predecir'")
+st.subheader("✏️ Dibuja el dígito en el panel y presiona 'Predecir' para probar")
 
 st.write("")  # Espacio
 
@@ -70,7 +70,7 @@ with col2:
 st.write("")  # Espacio
 
 # Botón de predicción
-if st.button('🔮 Predecir'):
+if st.button('Predecir'):
     if canvas_result.image_data is not None:
         input_numpy_array = np.array(canvas_result.image_data)
         input_image = Image.fromarray(input_numpy_array.astype('uint8'), 'RGBA')
@@ -82,7 +82,7 @@ if st.button('🔮 Predecir'):
         st.header('⚠️ Por favor dibuja en el canvas el dígito.')
 
 # Sidebar
-st.sidebar.title("Acerca de:")
+st.sidebar.title("Sobre esta App:")
 st.sidebar.text("Esta aplicación evalúa ")
 st.sidebar.text("la capacidad de una RNA de reconocer") 
 st.sidebar.text("dígitos escritos a mano.")
