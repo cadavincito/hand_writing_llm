@@ -23,7 +23,7 @@ def predictDigit(image):
 # Streamlit 
 st.set_page_config(page_title='Reconocimiento de Dígitos escritos a mano', layout='wide')
 
-# Estilos CSS para centrar todo
+# Estilos CSS
 st.markdown("""
     <style>
     .stApp {
@@ -39,9 +39,6 @@ st.markdown("""
     .stButton {
         margin: auto;
     }
-    .stCanvas {
-        margin: auto;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -51,26 +48,28 @@ st.subheader("✏️ Dibuja el dígito en el panel y presiona 'Predecir'")
 
 st.write("")  # Espacio
 
-# Parámetros para el canvas
+# Parámetros del canvas
 drawing_mode = "freedraw"
 stroke_width = st.slider('Selecciona el ancho de línea', 1, 30, 15)
-stroke_color = '#FFFFFF'  # Color de trazo blanco
-bg_color = '#000000'      # Fondo negro
+stroke_color = '#FFFFFF'
+bg_color = '#000000'
 
-# Canvas más grande
-canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  # Color semi-transparente para relleno
-    stroke_width=stroke_width,
-    stroke_color=stroke_color,
-    background_color=bg_color,
-    height=400,   # antes 200, ahora más grande
-    width=400,
-    key="canvas",
-)
+# Organizar el canvas centrado usando columnas
+col1, col2, col3 = st.columns([1,2,1])  # Hacemos la del medio más grande
+with col2:
+    canvas_result = st_canvas(
+        fill_color="rgba(255, 165, 0, 0.3)",  # Color de relleno
+        stroke_width=stroke_width,
+        stroke_color=stroke_color,
+        background_color=bg_color,
+        height=400,   # Canvas más grande
+        width=400,
+        key="canvas",
+    )
 
 st.write("")  # Espacio
 
-# Botón "Predecir"
+# Botón de predicción
 if st.button('🔮 Predecir'):
     if canvas_result.image_data is not None:
         input_numpy_array = np.array(canvas_result.image_data)
