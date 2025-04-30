@@ -1,10 +1,9 @@
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
+import matplotlib.pyplot as plt
 
 # Función de predicción
 def predictDigit(image):
@@ -23,22 +22,22 @@ def predictDigit(image):
 # Configuración de la página
 st.set_page_config(page_title='Reconocimiento de Dígitos', layout="wide", page_icon="✏️")
 
-# CSS personalizado - Tema Moderno Mejorado
+# CSS personalizado - Light Mode
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
-        /* Tema principal */
+        /* Tema claro */
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #f5f5f5;
+            color: #333333;
             font-family: 'Poppins', sans-serif;
         }
         .stApp {
-            background-color: #1e293b;
+            background-color: #ffffff;
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin: 1rem auto;
             max-width: 1200px;
             text-align: center;
@@ -46,17 +45,17 @@ st.markdown("""
         
         /* Encabezados */
         .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-            color: white !important;
+            color: #2d3748 !important;
             text-align: center;
         }
         
         /* Canvas container */
         .canvas-container {
-            border: 2px solid #475569;
+            border: 2px solid #e2e8f0;
             border-radius: 16px;
             padding: 1rem;
-            background-color: #334155;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #f8fafc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             margin: 1.5rem auto;
             display: flex;
             justify-content: center;
@@ -65,7 +64,7 @@ st.markdown("""
         
         /* Botones */
         .stButton button {
-            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            background: linear-gradient(135deg, #4299e1, #3182ce);
             color: white;
             border: none;
             border-radius: 12px;
@@ -75,26 +74,28 @@ st.markdown("""
             cursor: pointer;
             transition: all 0.3s ease;
             margin: 1rem auto;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .stButton button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+            background: linear-gradient(135deg, #3182ce, #4299e1);
         }
         
         /* Barra lateral */
         .stSidebar {
-            background: linear-gradient(180deg, #1e293b, #0f172a);
+            background: linear-gradient(180deg, #ffffff, #f7fafc);
             border-radius: 16px;
             padding: 1.5rem;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
         }
         .stSidebar h1, .stSidebar h2, .stSidebar h3 {
-            color: #7dd3fc !important;
+            color: #2d3748 !important;
             text-align: center;
         }
         .stSidebar p, .stSidebar .stText {
-            color: #cbd5e1 !important;
+            color: #4a5568 !important;
             text-align: center;
         }
         
@@ -104,10 +105,10 @@ st.markdown("""
             width: 80%;
         }
         .stSlider .st-ae {
-            color: #3b82f6 !important;
+            color: #3182ce !important;
         }
         .stSlider .st-af {
-            background-color: #3b82f6 !important;
+            background-color: #3182ce !important;
         }
         
         /* Resultados */
@@ -116,11 +117,16 @@ st.markdown("""
             margin: 1rem auto !important;
             max-width: 500px;
         }
+        
+        /* Texto del slider */
+        .stSlider label {
+            color: #4a5568 !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
 # Título y subtítulo
-st.markdown("<h1 style='color: white;'>✏️ Reconocimiento de Dígitos</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='color: #2d3748;'>✏️ Reconocimiento de Dígitos</h1>", unsafe_allow_html=True)
 st.subheader("Dibuja un dígito (0-9) en el panel y presiona 'Predecir'")
 
 # Canvas centrado
@@ -128,10 +134,10 @@ stroke_width = st.slider('Ancho del pincel', 1, 30, 15, help="Ajusta el grosor d
 
 st.markdown('<div class="canvas-container">', unsafe_allow_html=True)
 canvas_result = st_canvas(
-    fill_color="rgba(59, 130, 246, 0.3)",
+    fill_color="rgba(66, 153, 225, 0.2)",
     stroke_width=stroke_width,
-    stroke_color="#FFFFFF",
-    background_color="#334155",
+    stroke_color="#000000",
+    background_color="#ffffff",
     height=400,
     width=400,
     drawing_mode="freedraw",
@@ -155,20 +161,20 @@ if st.button('🔍 Predecir Dígito', use_container_width=True):
 
 # Barra lateral
 with st.sidebar:
-    st.markdown("<h2 style='color: #7dd3fc;'>Sobre esta App</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #2d3748;'>Sobre esta App</h2>", unsafe_allow_html=True)
     st.markdown("""
-        <p style='color: #cbd5e1;'>
+        <p style='color: #4a5568;'>
         Esta aplicación utiliza una red neuronal convolucional (CNN) entrenada
         para reconocer dígitos escritos a mano (0-9).
         </p>
-        <p style='color: #cbd5e1;'>
+        <p style='color: #4a5568;'>
         Basado en el trabajo de Vinay Uniyal
         </p>
     """, unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown("<h3 style='color: #7dd3fc;'>Instrucciones</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #2d3748;'>Instrucciones</h3>", unsafe_allow_html=True)
     st.markdown("""
-        <ol style='color: #cbd5e1; text-align: left;'>
+        <ol style='color: #4a5568; text-align: left;'>
             <li>Ajusta el ancho del pincel</li>
             <li>Dibuja un dígito en el área central</li>
             <li>Presiona el botón "Predecir"</li>
